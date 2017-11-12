@@ -194,7 +194,7 @@ D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\bin\Microsoft.AI.Dependen
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\bin\Microsoft.AI.WindowsServer.xml
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\bin\Microsoft.AI.Web.xml
-D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\obj\Debug\Angular2MVC.csprojResolveAssemblyReference.cache
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\obj\Debug\Angular2MVC.csproj.CoreCompileInputs.cache
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\obj\Debug\Angular2MVC.dll
 D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\obj\Debug\Angular2MVC.pdb
+D:\VS2017_Project\Angular2Demo\Angular2MVC\Angular2MVC\obj\Debug\Angular2MVC.csprojResolveAssemblyReference.cache

@@ -11,7 +11,7 @@
                       </div>
                  </nav>    
               <div class='container'>
-                <router-outlet></router-outlet>
+                <home></home>
               </div>
              </div>          
 `
