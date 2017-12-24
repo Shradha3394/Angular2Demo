@@ -16,13 +16,16 @@ var HomeComponent = (function () {
         this.name = 'SHRADHA';
         this.names = ['riya', 'piya', 'siya', 'tiya', 'miya', 'kiya', 'diya', 'hiya', 'jiya', 'niya'];
     }
+    HomeComponent.prototype.sayHello = function (nm) {
+        alert("Hello " + nm);
+    };
     return HomeComponent;
 }());
 HomeComponent = __decorate([
     core_1.Component({
         selector: "home",
         //template: '<img src="../../images/users.png" style="text-align:center"/>'
-        template: "\n        <div class=\"col-xs-6\">\n            <h3>Enter your name</h3><br/>\n            <input type='text' [(ngModel)]=\"name\"/>\n            <div>Welcome, {{name}}</div>\n            <ul>\n                <li *ngFor='let nm of names'>Hello {{nm}}</li>\n            </ul>\n        </div>\n\n        <div class=\"col-xs-6\"><img src=\"../../images/users.png\" style=\"text-align:center\"/></div>\n    "
+        template: "\n        <div class=\"col-xs-6\">\n            <h3>Enter your name</h3><br/>\n            <input type='text' [(ngModel)]=\"name\"/>\n            <div>Welcome, {{name}}</div>\n            <ul>\n                <li class=\"col-xs-6\" *ngFor='let nm of names' (click)=\"sayHello(nm)\" style=\"cursor:pointer;\">Hello {{nm}}</li>\n            </ul>\n        </div>\n\n        <div class=\"col-xs-6\"><img src=\"../../images/users.png\" style=\"text-align:center\"/></div>\n    "
     }),
     __metadata("design:paramtypes", [])
 ], HomeComponent);

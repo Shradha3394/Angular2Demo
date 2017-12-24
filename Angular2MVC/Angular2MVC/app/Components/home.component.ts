@@ -9,7 +9,7 @@
             <input type='text' [(ngModel)]="name"/>
             <div>Welcome, {{name}}</div>
             <ul>
-                <li *ngFor='let nm of names'>Hello {{nm}}</li>
+                <li class="col-xs-6" *ngFor='let nm of names' (click)="sayHello(nm)" style="cursor:pointer;">Hello {{nm}}</li>
             </ul>
         </div>
 
@@ -24,5 +24,9 @@ export class HomeComponent{
     constructor() {
         this.name = 'SHRADHA';
         this.names = ['riya', 'piya', 'siya', 'tiya', 'miya', 'kiya', 'diya', 'hiya', 'jiya', 'niya'];
+    }
+
+    sayHello(nm : string) {
+        alert("Hello " + nm);
     }
 }
