@@ -7,11 +7,12 @@
                        <div class='container-fluid'>
                          <ul class='nav navbar-nav'>
                            <li><a [routerLink]="['home']">Home</a></li>
+                           <li><a [routerLink]="['user']">User Management</a></li>
                       </ul>
                       </div>
                  </nav>    
               <div class='container'>
-                <home></home>
+                <router-outlet></router-outlet>
               </div>
              </div>          
 `
