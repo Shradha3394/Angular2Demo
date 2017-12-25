@@ -2,6 +2,7 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal'
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -11,7 +12,7 @@ import { UserComponent } from './components/user.component';
 import { UserService } from './Service/user.service';
  
  @NgModule({
-     imports: [BrowserModule, ReactiveFormsModule, HttpModule, FormsModule, routing],
+     imports: [BrowserModule, ReactiveFormsModule, HttpModule, FormsModule, routing, Ng2Bs3ModalModule],
     declarations: [AppComponent, HomeComponent, UserComponent],
     providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]

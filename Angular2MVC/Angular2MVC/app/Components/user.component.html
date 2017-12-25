@@ -1,4 +1,5 @@
-﻿<table class='table table-striped' *ngIf='users && users.length'>
+﻿<div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addUser()">Add</button></div>
+<table class='table table-striped' *ngIf='users && users.length'>
     <thead>
         <tr>
             <th>First Name</th>
@@ -15,3 +16,38 @@
         </tr>
     </tbody>
 </table>
+
+<modal #modal>
+  <form novalidate (ngSubmit)="onSubmit(userForm)" [formGroup]="userForm">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">Add New User</h4>
+    </modal-header>
+    <modal-body>
+
+      <div class="form-group">
+        <div>
+          <span>First Name*</span>
+          <input type="text" class="form-control" placeholder="First Name" formControlName="FirstName">
+        </div>
+        <div>
+          <span>Last name</span>
+          <input type="text" class="form-control" placeholder="Last Name" formControlName="LastName">
+        </div>
+        <div>
+          <span>Gender*</span>
+          <select formControlName="Gender" class="form-control">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <div>
+        <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+        <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary">Add</button>
+      </div>
+    </modal-footer>
+  </form>
+</modal>
+    
