@@ -41,6 +41,15 @@ export class UserService {
             catch(this.handleError);
     }
 
+    // Http Delete
+    delete(url: string, id: number) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.delete(url + id, options).
+            map((res: Response) => <any>res.json()).
+            catch(this.handleError);
+    }
+
     handleError(error: Response) {
         return Observable.throw(error.json().error || 'Server Error');
     }

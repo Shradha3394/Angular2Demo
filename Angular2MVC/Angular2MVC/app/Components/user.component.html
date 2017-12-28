@@ -17,7 +17,7 @@
             <td>{{user.Gender}}</td>
             <td>
                 <button title="Edit" class="btn btn-primary" (click)="editUser(user.Id)">Edit</button>
-                <button title="Delete" class="btn btn-danger">Delete</button>
+                <button title="Delete" class="btn btn-danger" (click)="deleteUser(user.Id)">Delete</button>
             </td>
         </tr>
     </tbody>

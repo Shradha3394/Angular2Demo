@@ -48,6 +48,14 @@ var UserService = (function () {
             map(function (res) { return res.json(); }).
             catch(this.handleError);
     };
+    // Http Delete
+    UserService.prototype.delete = function (url, id) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.delete(url + id, options).
+            map(function (res) { return res.json(); }).
+            catch(this.handleError);
+    };
     UserService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || 'Server Error');
     };

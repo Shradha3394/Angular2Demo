@@ -59,6 +59,17 @@ export class UserComponent implements OnInit {
         this.modal.open();
     }
 
+    deleteUser(id: number) {
+        this.dbops = DBOperation.DELETE;
+        this.SetControlsState(false);
+        this.buttonName = "Delete";
+        this.titleName = "Delete User";
+        this.userForm.reset();
+        this.user = this.users.find(x => x.Id == id);
+        this.userForm.setValue(this.user);
+        this.modal.open();
+    }
+
     SetControlsState(isEnable: boolean) {
         isEnable ? this.userForm.enable() : this.userForm.disable();
     }
@@ -89,6 +100,18 @@ export class UserComponent implements OnInit {
                         this.modal.dismiss();
                     }, error => this.message = error);
                 break;
+            case DBOperation.DELETE:
+                this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).
+                    subscribe(data => {
+                        if (data == 1)
+                        {
+                            this.message = "User successfully deleted.";
+                            this.LoadUsers();
+                        }
+                        else
+                            this.message = "There is some issue in saving records, please contact to system administrator!"
+                        this.modal.dismiss();
+                    }, error => this.message = error);
         }
     }
 }

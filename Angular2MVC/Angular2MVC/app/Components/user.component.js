@@ -54,6 +54,16 @@ var UserComponent = (function () {
         this.userForm.setValue(this.user);
         this.modal.open();
     };
+    UserComponent.prototype.deleteUser = function (id) {
+        this.dbops = enum_1.DBOperation.DELETE;
+        this.SetControlsState(false);
+        this.buttonName = "Delete";
+        this.titleName = "Delete User";
+        this.userForm.reset();
+        this.user = this.users.find(function (x) { return x.Id == id; });
+        this.userForm.setValue(this.user);
+        this.modal.open();
+    };
     UserComponent.prototype.SetControlsState = function (isEnable) {
         isEnable ? this.userForm.enable() : this.userForm.disable();
     };
@@ -82,6 +92,17 @@ var UserComponent = (function () {
                     _this.modal.dismiss();
                 }, function (error) { return _this.message = error; });
                 break;
+            case enum_1.DBOperation.DELETE:
+                this._userService.delete(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id).
+                    subscribe(function (data) {
+                    if (data == 1) {
+                        _this.message = "User successfully deleted.";
+                        _this.LoadUsers();
+                    }
+                    else
+                        _this.message = "There is some issue in saving records, please contact to system administrator!";
+                    _this.modal.dismiss();
+                }, function (error) { return _this.message = error; });
         }
     };
     return UserComponent;
