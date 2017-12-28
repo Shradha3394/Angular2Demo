@@ -1,4 +1,6 @@
 ﻿<div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addUser()">Add</button></div>
+<div class="alert alert-info" role="alert" *ngIf="isLoading">Loading...</div>
+<div *ngIf='users && users.length==0' class="alert alert-info" role="alert">No record found!</div>
 <table class='table table-striped' *ngIf='users && users.length'>
     <thead>
         <tr>
@@ -13,14 +15,23 @@
             <td>{{user.FirstName}}</td>
             <td>{{user.LastName}}</td>
             <td>{{user.Gender}}</td>
+            <td>
+                <button title="Edit" class="btn btn-primary" (click)="editUser(user.Id)">Edit</button>
+                <button title="Delete" class="btn btn-danger">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>
-
+<div *ngIf="message" role="alert" class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{message}}
+</div>
 <modal #modal>
   <form novalidate (ngSubmit)="onSubmit(userForm)" [formGroup]="userForm">
     <modal-header [show-close]="true">
-      <h4 class="modal-title">Add New User</h4>
+      <h4 class="modal-title">{{titleName}}</h4>
     </modal-header>
     <modal-body>
 
@@ -45,7 +56,7 @@
     <modal-footer>
       <div>
         <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
-        <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary">Add</button>
+        <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary">{{buttonName}}</button>
       </div>
     </modal-footer>
   </form>

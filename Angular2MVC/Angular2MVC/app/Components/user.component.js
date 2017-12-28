@@ -19,6 +19,7 @@ var UserComponent = (function () {
     function UserComponent(fb, _userService) {
         this.fb = fb;
         this._userService = _userService;
+        this.isLoading = false;
     }
     UserComponent.prototype.ngOnInit = function () {
         this.LoadUsers();
@@ -31,12 +32,30 @@ var UserComponent = (function () {
             LastName: [''],
             Gender: ['']
         });
+        this.isLoading = true;
         this._userService.get(global_1.Global.BASE_USER_ENDPOINT).
-            subscribe(function (userList) { return _this.users = userList; }, function (error) { return _this.message = error; });
+            subscribe(function (userList) { _this.users = userList, _this.isLoading = false; }, function (error) { return _this.message = error; });
     };
     UserComponent.prototype.addUser = function () {
         this.dbops = enum_1.DBOperation.CREATE;
+        this.SetControlsState(true);
+        this.buttonName = "Add";
+        this.titleName = "Add New User";
+        this.userForm.reset();
         this.modal.open();
+    };
+    UserComponent.prototype.editUser = function (id) {
+        this.dbops = enum_1.DBOperation.UPDATE;
+        this.SetControlsState(true);
+        this.buttonName = "Update";
+        this.titleName = "Edit User";
+        this.userForm.reset();
+        this.user = this.users.find(function (x) { return x.Id == id; });
+        this.userForm.setValue(this.user);
+        this.modal.open();
+    };
+    UserComponent.prototype.SetControlsState = function (isEnable) {
+        isEnable ? this.userForm.enable() : this.userForm.disable();
     };
     UserComponent.prototype.onSubmit = function (formData) {
         var _this = this;
@@ -50,6 +69,19 @@ var UserComponent = (function () {
                         _this.message = "There is some issue in saving records, please contact to system administrator!";
                     _this.modal.dismiss();
                 }, function (error) { return _this.message = error; });
+                break;
+            case enum_1.DBOperation.UPDATE:
+                this._userService.put(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).
+                    subscribe(function (data) {
+                    if (data == 1) {
+                        _this.message = "Data successfully updated.";
+                        _this.LoadUsers();
+                    }
+                    else
+                        _this.message = "There is some issue in saving records, please contact to system administrator!";
+                    _this.modal.dismiss();
+                }, function (error) { return _this.message = error; });
+                break;
         }
     };
     return UserComponent;

@@ -39,6 +39,15 @@ var UserService = (function () {
         }).
             catch(this.handleError);
     };
+    // Http Put
+    UserService.prototype.put = function (url, id, model) {
+        var body = JSON.stringify(model);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.put(url + id, body, options).
+            map(function (res) { return res.json(); }).
+            catch(this.handleError);
+    };
     UserService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || 'Server Error');
     };

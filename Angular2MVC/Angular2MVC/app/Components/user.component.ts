@@ -16,6 +16,9 @@ export class UserComponent implements OnInit {
     users: IUser[];
     user: IUser;
     message: string;
+    buttonName: string;
+    isLoading: boolean = false;
+    titleName: string;
     dbops: DBOperation;
     userForm: FormGroup;
     
@@ -31,14 +34,33 @@ export class UserComponent implements OnInit {
             LastName: [''],
             Gender: ['']
         });
-
+        this.isLoading = true;
         this._userService.get(Global.BASE_USER_ENDPOINT).
-            subscribe(userList => this.users = userList, error => this.message = error);
+            subscribe(userList => { this.users = userList, this.isLoading = false; }, error => this.message = error);
     }
 
     addUser() {
         this.dbops = DBOperation.CREATE;
+        this.SetControlsState(true);
+        this.buttonName = "Add";
+        this.titleName = "Add New User";
+        this.userForm.reset();
         this.modal.open();
+    }
+
+    editUser(id: number) {
+        this.dbops = DBOperation.UPDATE;
+        this.SetControlsState(true);
+        this.buttonName = "Update";
+        this.titleName = "Edit User";
+        this.userForm.reset();
+        this.user = this.users.find(x => x.Id == id);
+        this.userForm.setValue(this.user);
+        this.modal.open();
+    }
+
+    SetControlsState(isEnable: boolean) {
+        isEnable ? this.userForm.enable() : this.userForm.disable();
     }
 
     onSubmit(formData: any) {
@@ -54,6 +76,19 @@ export class UserComponent implements OnInit {
 
                         this.modal.dismiss();
                     }, error => this.message = error);
+                break;
+            case DBOperation.UPDATE:
+                this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).
+                    subscribe(data => {
+                        if (data == 1) {
+                            this.message = "Data successfully updated.";
+                            this.LoadUsers();
+                        }
+                        else
+                            this.message = "There is some issue in saving records, please contact to system administrator!"
+                        this.modal.dismiss();
+                    }, error => this.message = error);
+                break;
         }
     }
 }
